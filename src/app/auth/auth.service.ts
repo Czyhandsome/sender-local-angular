@@ -1,0 +1,64 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import {GenericMsg} from '../entity/generic-msg';
+import {TokenObject} from './token-object';
+import {ApiConfig} from '../config/api';
+
+@Injectable()
+export class AuthService {
+
+  constructor(private http: HttpClient) {
+  }
+
+  public doLogin(phonenumber: string, password: string): Observable<string> {
+    return this.http.post<GenericMsg<TokenObject>>(ApiConfig.AUTH_URL, {
+      phonenumber: phonenumber,
+      password: password
+    }).map(msg => {
+      const data = msg.data;
+      this.saveToken(
+        data.senderId,
+        data.tokenObject.access_token,
+        data.tokenObject.expires_in,
+        data.tokenObject.expires_in
+      );
+      return 'success';
+    }, error => {
+      throw new Error('登录失败!原因: ' + error);
+    });
+  }
+
+  public refreshToken() {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (refreshToken == null) {
+      throw Error(`No refresh token, can't refresh!`);
+    }
+  }
+
+  private saveToken(id, token, refreshToken, expiresIn) {
+    localStorage.setItem('id', id);
+    localStorage.setItem('token', token);
+    localStorage.setItem('refresh_token', refreshToken);
+    const expireTime = String(new Date().getTime() + expiresIn * 1000);
+    localStorage.setItem('expire_time', expireTime);
+  }
+
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  public getId(): string {
+    return localStorage.getItem('id');
+  }
+
+  public isAuthenticated(): boolean {
+    const token = this.getToken();
+    if (token == null) {
+      return false;
+    }
+    const now = new Date().getTime();
+    return now < Number(localStorage.getItem('expire_time'));
+  }
+}
