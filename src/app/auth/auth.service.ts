@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {GenericMsg} from '../entity/generic-msg';
 import {TokenObject} from './token-object';
-import {ApiConfig} from '../config/api';
+import {ApiConfig} from '../config/api.config';
 
 @Injectable()
 export class AuthService {

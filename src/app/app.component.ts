@@ -1,5 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import {AuthService} from './auth/auth.service';
+import {RouterService} from './router/router.service';
 
 @Component({
   selector: 'app-root',
@@ -8,32 +9,14 @@ import {AuthService} from './auth/auth.service';
 })
 @Injectable()
 export class AppComponent {
-  title = 'Hello Sender!';
+  title = 'Hello Sender';
 
-  phonenumber: string;
-  password: string;
-
-  errorMsg: string;
-
-  isAuthenticated = false;
-  senderId: string;
-
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService,
+              private router: RouterService) {
     if (this.auth.isAuthenticated()) {
-      this.isAuthenticated = true;
-      this.senderId = auth.getId();
+      this.router.jumpTo('/task');
+    } else {
+      this.router.jumpTo('/login');
     }
-  }
-
-  doLogin() {
-    this.auth.doLogin(this.phonenumber, this.password)
-      .subscribe(() => {
-        this.isAuthenticated = true;
-        this.senderId = this.auth.getId();
-        this.errorMsg = null;
-      }, error => {
-        console.log(JSON.stringify(error));
-        this.errorMsg = '登录失败!';
-      });
   }
 }

@@ -2,8 +2,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../auth/auth.service';
 import {Injectable} from '@angular/core';
-import {ApiConfig} from '../config/api';
 import {GenericMsg} from '../entity/generic-msg';
+import {ApiConfig} from '../config/api.config';
 
 @Injectable()
 export class TaskService {

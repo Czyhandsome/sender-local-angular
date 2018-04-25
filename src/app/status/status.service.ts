@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {GenericMsg} from '../entity/generic-msg';
-import {ApiConfig} from '../config/api';
 import {AuthService} from '../auth/auth.service';
+import {ApiConfig} from '../config/api.config';
 
 @Injectable()
 export class StatusService {
