@@ -7,9 +7,10 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './auth/auth.service';
 import {TaskService} from './task/task.service';
 import {TaskComponent} from './task/task.component';
-import {TokenInterceptor} from './auth/auth.interpretor';
 import {StatusService} from './status/status.service';
 import {StatusComponent} from './status/status.component';
+import {FormsModule} from '@angular/forms';
+import {AuthInterceptor} from './auth/auth.interceptor';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {StatusComponent} from './status/status.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     AuthService,
@@ -28,7 +30,7 @@ import {StatusComponent} from './status/status.component';
     StatusService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: AuthInterceptor,
       multi: true
     }
   ],

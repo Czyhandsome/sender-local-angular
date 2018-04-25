@@ -1,7 +1,13 @@
-const DOMAIN_URL = 'http://0.0.0.0:8080';
+const DOMAIN_URL = 'http://127.0.0.1:8080';
 
 export class ApiConfig {
   public static AUTH_URL = `${DOMAIN_URL}/api/public/sender/login`;
+
+  static needAuthentication(url: string): boolean {
+    const api = url.replace(DOMAIN_URL, '');
+    const isPublic = api.startsWith('/public') || api.startsWith('/api/public');
+    return !isPublic;
+  }
 
   static currentTaskUrl(senderId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/tasks/currentTask`;

@@ -12,6 +12,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
+  // 执行登录
   public doLogin(phonenumber: string, password: string): Observable<string> {
     return this.http.post<GenericMsg<TokenObject>>(ApiConfig.AUTH_URL, {
       phonenumber: phonenumber,
@@ -30,6 +31,7 @@ export class AuthService {
     });
   }
 
+  // 执行交换token
   public refreshToken() {
     const refreshToken = localStorage.getItem('refresh_token');
     if (refreshToken == null) {
@@ -37,6 +39,7 @@ export class AuthService {
     }
   }
 
+  // 保存token
   private saveToken(id, token, refreshToken, expiresIn) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
@@ -45,14 +48,17 @@ export class AuthService {
     localStorage.setItem('expire_time', expireTime);
   }
 
+  // 获取token
   public getToken(): string {
     return localStorage.getItem('token');
   }
 
+  // 获取快递员id
   public getId(): string {
     return localStorage.getItem('id');
   }
 
+  // 是否已经授权
   public isAuthenticated(): boolean {
     const token = this.getToken();
     if (token == null) {

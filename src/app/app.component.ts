@@ -10,8 +10,10 @@ import {AuthService} from './auth/auth.service';
 export class AppComponent {
   title = 'Hello Sender!';
 
-  phonenumber = '18949203682';
-  password = '123456';
+  phonenumber: string;
+  password: string;
+
+  errorMsg: string;
 
   isAuthenticated = false;
   senderId: string;
@@ -20,8 +22,6 @@ export class AppComponent {
     if (this.auth.isAuthenticated()) {
       this.isAuthenticated = true;
       this.senderId = auth.getId();
-    } else {
-      alert('Not Authenticated!');
     }
   }
 
@@ -30,6 +30,10 @@ export class AppComponent {
       .subscribe(() => {
         this.isAuthenticated = true;
         this.senderId = this.auth.getId();
+        this.errorMsg = null;
+      }, error => {
+        console.log(JSON.stringify(error));
+        this.errorMsg = '登录失败!';
       });
   }
 }
