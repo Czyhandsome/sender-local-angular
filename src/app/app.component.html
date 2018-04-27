@@ -4,5 +4,6 @@
     Welcome to {{ title }}!
   </h1>
   <router-outlet></router-outlet>
+  <button *ngIf="isAuthenticated()" (click)="logout()">取消登录</button>
 </div>
 

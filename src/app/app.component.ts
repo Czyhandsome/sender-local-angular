@@ -19,4 +19,12 @@ export class AppComponent {
       this.router.jumpTo('/login');
     }
   }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  isAuthenticated() {
+    return this.auth.isAuthenticated();
+  }
 }

@@ -1,4 +1,4 @@
-const DOMAIN_URL = 'http://127.0.0.1:8080';
+const DOMAIN_URL = 'http://47.98.99.234:8080';
 
 export class ApiConfig {
   public static AUTH_URL = `${DOMAIN_URL}/api/public/sender/login`;

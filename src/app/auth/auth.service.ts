@@ -5,11 +5,13 @@ import 'rxjs/add/operator/map';
 import {GenericMsg} from '../entity/generic-msg';
 import {TokenObject} from './token-object';
 import {ApiConfig} from '../config/api.config';
+import {RouterService} from '../router/router.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private router: RouterService) {
   }
 
   // 执行登录
@@ -31,12 +33,10 @@ export class AuthService {
     });
   }
 
-  // 执行交换token
-  public refreshToken() {
-    const refreshToken = localStorage.getItem('refresh_token');
-    if (refreshToken == null) {
-      throw Error(`No refresh token, can't refresh!`);
-    }
+  // 执行取消登录
+  public logout() {
+    this.removeToken();
+    this.router.jumpTo('/login');
   }
 
   // 保存token
@@ -46,6 +46,13 @@ export class AuthService {
     localStorage.setItem('refresh_token', refreshToken);
     const expireTime = String(new Date().getTime() + expiresIn * 1000);
     localStorage.setItem('expire_time', expireTime);
+  }
+
+  private removeToken() {
+    localStorage.removeItem('id');
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('expire_time');
   }
 
   // 获取token
