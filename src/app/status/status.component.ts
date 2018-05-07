@@ -2,6 +2,7 @@ import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {StatusService} from './status.service';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
+import {SenderStatus} from './sender.status';
 
 @Component({
   selector: 'app-status',
@@ -10,14 +11,14 @@ import {Subscription} from 'rxjs/Subscription';
 })
 @Injectable()
 export class StatusComponent implements OnInit, OnDestroy {
-  currentStatus: string;
+  currentStatus: SenderStatus;
   private subscription: Subscription;
 
   public changeStatus() {
-    if (this.currentStatus === 'RESTING') {
+    if (this.currentStatus === SenderStatus.RESTING) {
       this.statusService.beReady()
         .subscribe(() => this.refreshStatus());
-    } else if (this.currentStatus === 'READY') {
+    } else if (this.currentStatus === SenderStatus.READY) {
       this.statusService.beResting()
         .subscribe(() => this.refreshStatus());
     }

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   doLogin() {
     this.auth.doLogin(this.phonenumber, this.password)
       .subscribe(() => {
-        this.router.jumpTo('/task');
+        this.router.jumpTo('/main');
       }, error => {
         console.log(JSON.stringify(error));
         this.errorMsg = '登录失败!';

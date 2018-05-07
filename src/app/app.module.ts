@@ -12,9 +12,12 @@ import {StatusComponent} from './status/status.component';
 import {FormsModule} from '@angular/forms';
 import {AuthInterceptor} from './auth/auth.interceptor';
 import {RouterModule} from '@angular/router';
-import {RouteConfig} from './config/route.config';
+import {RouteConfig} from './router/route.config';
 import {LoginComponent} from './login/login.component';
 import {RouterService} from './router/router.service';
+import {RoutineComponent} from './routine/routine.component';
+import {MainComponent} from './main/main.component';
+import {RoutineService} from './routine/routine.service';
 
 
 @NgModule({
@@ -22,7 +25,9 @@ import {RouterService} from './router/router.service';
     AppComponent,
     TaskComponent,
     StatusComponent,
-    LoginComponent
+    LoginComponent,
+    RoutineComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,7 @@ import {RouterService} from './router/router.service';
     TaskService,
     StatusService,
     RouterService,
+    RoutineService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

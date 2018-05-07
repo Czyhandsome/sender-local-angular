@@ -17,7 +17,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = Observable.timer(1000, 2000)
+    this.subscription = Observable.timer(0, 2000)
       .subscribe(() => {
         this.taskService.getCurrentTask()
           .subscribe(currentTask => this.currentTask = currentTask);

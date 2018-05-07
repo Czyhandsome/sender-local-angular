@@ -13,15 +13,11 @@ export class AppComponent {
 
   constructor(private auth: AuthService,
               private router: RouterService) {
-    if (this.auth.isAuthenticated()) {
-      this.router.jumpTo('/task');
+    if (this.isAuthenticated()) {
+      this.router.jumpTo('/main');
     } else {
       this.router.jumpTo('/login');
     }
-  }
-
-  logout() {
-    this.auth.logout();
   }
 
   isAuthenticated() {

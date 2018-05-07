@@ -7,14 +7,14 @@ import {ApiConfig} from '../config/api.config';
 
 @Injectable()
 export class StatusService {
-  private senderId: string;
+  private readonly senderId: string;
 
   constructor(private http: HttpClient,
               private auth: AuthService) {
     this.senderId = this.auth.getId();
   }
 
-  public getCurrentStatus(): Observable<string> {
+  public getCurrentStatus(): Observable<any> {
     const CURRENT_STATUS_URL = ApiConfig.currentStatusUrl(this.senderId);
     return this.http.get<GenericMsg<any>>(CURRENT_STATUS_URL)
       .map(msg => {
