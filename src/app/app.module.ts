@@ -18,6 +18,7 @@ import {RouterService} from './router/router.service';
 import {RoutineComponent} from './routine/routine.component';
 import {MainComponent} from './main/main.component';
 import {RoutineService} from './routine/routine.service';
+import { PushComponent } from './push/push.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {RoutineService} from './routine/routine.service';
     StatusComponent,
     LoginComponent,
     RoutineComponent,
-    MainComponent
+    MainComponent,
+    PushComponent
   ],
   imports: [
     BrowserModule,

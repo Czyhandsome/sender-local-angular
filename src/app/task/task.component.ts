@@ -1,8 +1,7 @@
+import {Subscription, timer as observableTimer} from 'rxjs';
 import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {TaskService} from './task.service';
-import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
+
 
 @Component({
   selector: 'app-task',
@@ -17,7 +16,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = Observable.timer(0, 2000)
+    this.subscription = observableTimer(0, 2000)
       .subscribe(() => {
         this.taskService.getCurrentTask()
           .subscribe(currentTask => this.currentTask = currentTask);

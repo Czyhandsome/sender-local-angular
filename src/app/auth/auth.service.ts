@@ -1,7 +1,8 @@
+import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs';
+
 import {GenericMsg} from '../entity/generic-msg';
 import {TokenObject} from './token-object';
 import {ApiConfig} from '../config/api.config';
@@ -19,7 +20,7 @@ export class AuthService {
     return this.http.post<GenericMsg<TokenObject>>(ApiConfig.AUTH_URL, {
       phonenumber: phonenumber,
       password: password
-    }).map(msg => {
+    }).pipe(map(msg => {
       const data = msg.data;
       this.saveToken(
         data.senderId,
@@ -30,7 +31,7 @@ export class AuthService {
       return 'success';
     }, error => {
       throw new Error('登录失败!原因: ' + error);
-    });
+    }));
   }
 
   // 执行取消登录

@@ -1,8 +1,8 @@
 import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {StatusService} from './status.service';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {SenderStatus} from './sender.status';
+import {timer} from 'rxjs/internal/observable/timer';
 
 @Component({
   selector: 'app-status',
@@ -34,7 +34,7 @@ export class StatusComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = Observable.timer(1000, 2000)
+    this.subscription = timer(0, 2000)
       .subscribe(() => this.refreshStatus());
   }
 

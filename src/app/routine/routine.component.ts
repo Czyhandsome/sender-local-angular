@@ -1,8 +1,7 @@
 import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {Routine} from './routine';
 import {RoutineService} from './routine.service';
-import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
+import {Subscription, timer} from 'rxjs';
 
 @Component({
   selector: 'app-routine',
@@ -20,7 +19,7 @@ export class RoutineComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = Observable.timer(0, 2000)
+    this.subscription = timer(0, 2000)
       .subscribe(() => this.routineService.getCurrentRoutine()
         .subscribe(msg => {
           if (msg.status === 1) {
