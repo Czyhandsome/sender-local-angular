@@ -1,7 +1,21 @@
-const DOMAIN_URL = 'http://localhost:8080';
+// IP地址
+
+const IP = 'localhost';
+// 端口号
+const PORT = 8080;
+
+// 主页地址
+const DOMAIN_URL = `http://${IP}:${PORT}`;
 
 export class ApiConfig {
+  // ********** 权限的URL ********** //
   public static AUTH_URL = `${DOMAIN_URL}/api/public/sender/login`;
+
+
+  // ********** WebSocket的URL ********** //
+  public static WEBSOCKET_URL(senderId: string): string {
+    return `ws://${IP}:${PORT}/ws?userId=${senderId}`;
+  }
 
   // ********** 判断一个url是否需要token认证 ********** //
   static needAuthentication(url: string): boolean {

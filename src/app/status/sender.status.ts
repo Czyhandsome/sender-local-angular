@@ -3,17 +3,17 @@
  */
 export enum SenderStatus {
   // 离线
-  OFF_LINE,
+  OFF_LINE = 'OFF_LINE',
   // 就绪
-  READY,
+  READY = 'READY',
   // 行程中
-  IN_ROUTINE,
+  IN_ROUTINE = 'IN_ROUTINE',
   // 休息
-  RESTING,
+  RESTING = 'RESTING',
   // 推送中
-  PUSHING,
+  PUSHING = 'PUSHING',
   // 取件中
-  FETCHING,
+  FETCHING = 'FETCHING',
   // 送件中
-  SENDING
+  SENDING = 'SENDING'
 }

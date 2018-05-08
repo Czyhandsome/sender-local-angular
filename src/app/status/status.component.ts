@@ -21,6 +21,8 @@ export class StatusComponent implements OnInit, OnDestroy {
     } else if (this.currentStatus === SenderStatus.READY) {
       this.statusService.beResting()
         .subscribe(() => this.refreshStatus());
+    } else {
+      alert(`Current status ${this.currentStatus}`);
     }
   }
 
