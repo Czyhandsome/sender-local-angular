@@ -8,15 +8,13 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class StatusService {
-  private readonly senderId: string;
 
   constructor(private http: HttpClient,
               private auth: AuthService) {
-    this.senderId = this.auth.getId();
   }
 
   public getCurrentStatus(): Observable<any> {
-    const CURRENT_STATUS_URL = ApiConfig.currentStatusUrl(this.senderId);
+    const CURRENT_STATUS_URL = ApiConfig.currentStatusUrl(this.auth.getSenderId());
     return this.http.get<GenericMsg<any>>(CURRENT_STATUS_URL)
       .pipe(map(msg => {
         return msg.data;
@@ -25,11 +23,11 @@ export class StatusService {
 
   public beReady(): Observable<GenericMsg<any>> {
     return this.http.post<GenericMsg<any>>(
-      ApiConfig.beReadyUrl(this.senderId), {});
+      ApiConfig.beReadyUrl(this.auth.getSenderId()), {});
   }
 
   public beResting(): Observable<GenericMsg<any>> {
     return this.http.post<GenericMsg<any>>(
-      ApiConfig.beRestingUrl(this.senderId), {});
+      ApiConfig.beRestingUrl(this.auth.getSenderId()), {});
   }
 }

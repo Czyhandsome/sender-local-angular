@@ -54,4 +54,9 @@ export class ApiConfig {
   static currentRoutineUrl(senderId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/routines/current`;
   }
+
+  // ********** Sender Location ********** //
+  static updateLocationUrl(senderId: string): string {
+    return `${DOMAIN_URL}/api/sender/${senderId}/locations`;
+  }
 }

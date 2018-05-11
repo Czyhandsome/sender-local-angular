@@ -8,6 +8,8 @@ import {TokenObject} from './token-object';
 import {ApiConfig} from '../config/api.config';
 import {RouterService} from '../router/router.service';
 
+const storage = sessionStorage;
+
 @Injectable()
 export class AuthService {
 
@@ -42,28 +44,28 @@ export class AuthService {
 
   // 保存token
   private saveToken(id, token, refreshToken, expiresIn) {
-    localStorage.setItem('id', id);
-    localStorage.setItem('token', token);
-    localStorage.setItem('refresh_token', refreshToken);
+    storage.setItem('id', id);
+    storage.setItem('token', token);
+    storage.setItem('refresh_token', refreshToken);
     const expireTime = String(new Date().getTime() + expiresIn * 1000);
-    localStorage.setItem('expire_time', expireTime);
+    storage.setItem('expire_time', expireTime);
   }
 
   private removeToken() {
-    localStorage.removeItem('id');
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('expire_time');
+    storage.removeItem('id');
+    storage.removeItem('token');
+    storage.removeItem('refresh_token');
+    storage.removeItem('expire_time');
   }
 
   // 获取token
   public getToken(): string {
-    return localStorage.getItem('token');
+    return storage.getItem('token');
   }
 
   // 获取快递员id
-  public getId(): string {
-    return localStorage.getItem('id');
+  public getSenderId(): string {
+    return storage.getItem('id');
   }
 
   // 是否已经授权
@@ -73,6 +75,6 @@ export class AuthService {
       return false;
     }
     const now = new Date().getTime();
-    return now < Number(localStorage.getItem('expire_time'));
+    return now < Number(storage.getItem('expire_time'));
   }
 }

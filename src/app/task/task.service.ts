@@ -13,7 +13,7 @@ export class TaskService {
   }
 
   public getCurrentTask(): Observable<any> {
-    const CURRENT_TASK_URL = ApiConfig.currentTaskUrl(this.auth.getId());
+    const CURRENT_TASK_URL = ApiConfig.currentTaskUrl(this.auth.getSenderId());
     return this.http.get<GenericMsg<any>>(CURRENT_TASK_URL)
       .pipe(map(msg => msg.data));
   }

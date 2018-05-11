@@ -13,7 +13,7 @@ export class RoutineService {
   }
 
   getCurrentRoutine(): Observable<GenericMsg<any>> {
-    const url = ApiConfig.currentRoutineUrl(this.auth.getId());
+    const url = ApiConfig.currentRoutineUrl(this.auth.getSenderId());
     return this.http.get<GenericMsg<any>>(url);
   }
 

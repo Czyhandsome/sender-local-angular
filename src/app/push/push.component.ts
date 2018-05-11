@@ -8,12 +8,18 @@ import {PushService} from './push.service';
 })
 @Injectable()
 export class PushComponent implements OnInit, OnDestroy {
+  public pushMsg: string;
 
   constructor(private push: PushService) {
   }
 
   ngOnInit() {
     this.push.connect();
+    this.push.listen(this.updatePushMsg);
+  }
+
+  private updatePushMsg(event: MessageEvent) {
+    this.pushMsg = JSON.stringify(event.data);
   }
 
   ngOnDestroy() {

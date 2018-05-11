@@ -12,7 +12,11 @@ export class PushService {
   }
 
   public connect() {
-    this.ws = new WebSocket(ApiConfig.WEBSOCKET_URL(this.auth.getId()));
+    this.ws = new WebSocket(ApiConfig.WEBSOCKET_URL(this.auth.getSenderId()));
+  }
+
+  public listen(listener: (event: MessageEvent) => any) {
+    this.ws.onmessage = listener;
   }
 
   public disconnect() {
