@@ -43,14 +43,17 @@ export class ApiConfig {
   }
 
   // ********** Routine ********** //
+  // 快递员接受行程
   static createRoutineUrl(senderId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/routines`;
   }
 
+  // 快递员拒绝行程
   static cancelRoutineUrl(senderId: string, routineId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/routines/${routineId}/cancel`;
   }
 
+  // 快递员获取当前行程
   static currentRoutineUrl(senderId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/routines/current`;
   }
@@ -61,11 +64,23 @@ export class ApiConfig {
   }
 
   // ********** 任务 ********** //
+  // 快递员接受任务
   static acceptTaskUrl(senderId: string, taskId: string) {
     return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}/receive`;
   }
 
+  // 快递员拒绝任务
   static rejectTaskUrl(senderId: string, taskId: string) {
     return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}/reject`;
+  }
+
+  // 获取所有要取的任务
+  static getAllFetchOrdersUrl(senderId: string, taskId: string) {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}/orders/allFetch`;
+  }
+
+  // 获取所有要送的任务
+  static getAllSendOrdersUrl(senderId: string, taskId: string) {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}/orders/allSend`;
   }
 }

@@ -1,8 +1,7 @@
 import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {StatusService} from './status.service';
-import {Subscription} from 'rxjs';
+import {Subscription, timer} from 'rxjs';
 import {SenderStatus} from './sender.status';
-import {timer} from 'rxjs/internal/observable/timer';
 
 @Component({
   selector: 'app-status',
