@@ -15,14 +15,12 @@ export class StatusComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   public changeStatus() {
-    if (this.currentStatus === SenderStatus.RESTING) {
+    if (this.currentStatus === SenderStatus.RESTING || this.currentStatus === SenderStatus.OFF_LINE) {
       this.statusService.beReady()
         .subscribe(() => this.refreshStatus());
     } else if (this.currentStatus === SenderStatus.READY) {
       this.statusService.beResting()
         .subscribe(() => this.refreshStatus());
-    } else {
-      alert(`Current status ${this.currentStatus}`);
     }
   }
 

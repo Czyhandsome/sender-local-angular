@@ -7,7 +7,7 @@ import {AuthService} from '../auth/auth.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  private senderId: string;
+  public senderId: string;
 
   constructor(private auth: AuthService) {
     this.senderId = auth.getSenderId();

@@ -59,4 +59,13 @@ export class ApiConfig {
   static updateLocationUrl(senderId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/locations`;
   }
+
+  // ********** 任务 ********** //
+  static acceptTaskUrl(senderId: string, taskId: string) {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}/receive`;
+  }
+
+  static rejectTaskUrl(senderId: string, taskId: string) {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}/reject`;
+  }
 }
