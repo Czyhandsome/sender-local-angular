@@ -32,8 +32,8 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   // 处理当前的任务
   private handleCurrentTask(currentTask: CurrentTask) {
+    this.currentTask = currentTask;
     if (currentTask != null) {
-      this.currentTask = currentTask;
       const taskId = currentTask.taskId;
       switch (currentTask.taskStatus) {
         case TaskStatus.FETCHING:

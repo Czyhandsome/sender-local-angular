@@ -43,12 +43,12 @@ export class ApiConfig {
   }
 
   // ********** Routine ********** //
-  // 快递员接受行程
+  // 快递员创建行程
   static createRoutineUrl(senderId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/routines`;
   }
 
-  // 快递员拒绝行程
+  // 快递员取消行程
   static cancelRoutineUrl(senderId: string, routineId: string): string {
     return `${DOMAIN_URL}/api/sender/${senderId}/routines/${routineId}/cancel`;
   }
