@@ -83,4 +83,42 @@ export class ApiConfig {
   static getAllSendOrdersUrl(senderId: string, taskId: string) {
     return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}/orders/allSend`;
   }
+
+  // 开始取件
+  static startFetchOrderUrl(senderId: string, taskId: string, orderId: string)
+    : string {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}` +
+      `/orders/${orderId}/startFetch`;
+  }
+
+  // 结束取件
+  static endFetchOrderUrl(senderId: string, taskId: string, orderId: string)
+    : string {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}` +
+      `/orders/${orderId}/endFetch`;
+  }
+
+  // 开始送件
+  static startSendOrderUrl(senderId: string, taskId: string, orderId: string)
+    : string {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}` +
+      `/orders/${orderId}/startSend`;
+  }
+
+  // 验证快递员
+  static verifyReceiverUrl(senderId: string,
+                           taskId: string,
+                           orderId: string,
+                           code: string)
+    : string {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}` +
+      `/orders/${orderId}/verifyReceiver/code/${code}`;
+  }
+
+  // 结束送件
+  static endSendOrderUrl(senderId: string, taskId: string, orderId: string)
+    : string {
+    return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}` +
+      `/orders/${orderId}/endSend`;
+  }
 }

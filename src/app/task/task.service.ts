@@ -34,4 +34,49 @@ export class TaskService {
     return this.http.get<GenericMsg<TaskDto>>(url)
       .pipe(map(msg => msg.data));
   }
+
+  // 开始取件
+  public startFetchOrder(taskId: string, orderId: string)
+    : Observable<GenericMsg<any>> {
+    const url = ApiConfig.startFetchOrderUrl(
+      this.auth.getSenderId(), taskId, orderId
+    );
+    return this.http.post<GenericMsg<any>>(url, {});
+  }
+
+  // 结束取件
+  public endFetchOrder(taskId: string, orderId: string)
+    : Observable<GenericMsg<any>> {
+    const url = ApiConfig.endFetchOrderUrl(
+      this.auth.getSenderId(), taskId, orderId
+    );
+    return this.http.post<GenericMsg<any>>(url, {});
+  }
+
+  // 开始送件
+  public startSendOrder(taskId: string, orderId: string)
+    : Observable<GenericMsg<any>> {
+    const url = ApiConfig.startSendOrderUrl(
+      this.auth.getSenderId(), taskId, orderId
+    );
+    return this.http.post<GenericMsg<any>>(url, {});
+  }
+
+  // 验证快递员
+  public verifyReceiver(taskId: string, orderId: string, code: string)
+    : Observable<GenericMsg<any>> {
+    const url = ApiConfig.verifyReceiverUrl(
+      this.auth.getSenderId(), taskId, orderId, code
+    );
+    return this.http.post<GenericMsg<any>>(url, {});
+  }
+
+  // 结束送件
+  public endSendOrder(taskId: string, orderId: string)
+    : Observable<GenericMsg<any>> {
+    const url = ApiConfig.endSendOrderUrl(
+      this.auth.getSenderId(), taskId, orderId
+    );
+    return this.http.post<GenericMsg<any>>(url, {});
+  }
 }

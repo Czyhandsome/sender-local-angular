@@ -1,6 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import {AuthService} from './auth/auth.service';
-import {RouterService} from './router/router.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,11 @@ export class AppComponent {
   title = 'Hello Sender';
 
   constructor(private auth: AuthService,
-              private router: RouterService) {
+              private router: Router) {
     if (this.isAuthenticated()) {
-      this.router.jumpTo('/main');
+      this.router.navigateByUrl('/main');
     } else {
-      this.router.jumpTo('/login');
+      this.router.navigateByUrl('/login');
     }
   }
 

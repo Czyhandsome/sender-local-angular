@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {GenericMsg} from '../entity/generic-msg';
 import {TokenObject} from './token-object';
 import {ApiConfig} from '../config/api.config';
-import {RouterService} from '../router/router.service';
+import {Router} from '@angular/router';
 
 const storage = sessionStorage;
 
@@ -14,7 +14,7 @@ const storage = sessionStorage;
 export class AuthService {
 
   constructor(private http: HttpClient,
-              private router: RouterService) {
+              private router: Router) {
   }
 
   // 执行登录
@@ -39,7 +39,7 @@ export class AuthService {
   // 执行取消登录
   public logout() {
     this.removeToken();
-    this.router.jumpTo('/login');
+    this.router.navigateByUrl('/login');
   }
 
   // 保存token

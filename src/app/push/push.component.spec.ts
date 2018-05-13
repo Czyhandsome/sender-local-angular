@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PushComponent } from './push.component';
+import {PushComponent} from './push.component';
 
 describe('PushComponent', () => {
   let component: PushComponent;
@@ -8,9 +8,9 @@ describe('PushComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PushComponent ]
+      declarations: [PushComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

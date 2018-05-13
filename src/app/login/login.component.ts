@@ -1,6 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
-import {RouterService} from '../router/router.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   errorMsg: string;
 
   constructor(private auth: AuthService,
-              private router: RouterService) {
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   doLogin() {
     this.auth.doLogin(this.phonenumber, this.password)
       .subscribe(() => {
-        this.router.jumpTo('/main');
+        this.router.navigateByUrl('/main');
       }, error => {
         console.log(JSON.stringify(error));
         this.errorMsg = '登录失败!';

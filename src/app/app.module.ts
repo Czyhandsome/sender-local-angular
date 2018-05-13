@@ -14,11 +14,11 @@ import {AuthInterceptor} from './auth/auth.interceptor';
 import {RouterModule} from '@angular/router';
 import {RouteConfig} from './router/route.config';
 import {LoginComponent} from './login/login.component';
-import {RouterService} from './router/router.service';
 import {RoutineComponent} from './routine/routine.component';
 import {MainComponent} from './main/main.component';
 import {RoutineService} from './routine/routine.service';
-import { PushComponent } from './push/push.component';
+import {PushComponent} from './push/push.component';
+import {TaskPreviewComponent} from './task/all-fetch/task-preview.component';
 
 
 @NgModule({
@@ -29,7 +29,8 @@ import { PushComponent } from './push/push.component';
     LoginComponent,
     RoutineComponent,
     MainComponent,
-    PushComponent
+    PushComponent,
+    TaskPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +44,6 @@ import { PushComponent } from './push/push.component';
     AuthService,
     TaskService,
     StatusService,
-    RouterService,
     RoutineService,
     {
       provide: HTTP_INTERCEPTORS,

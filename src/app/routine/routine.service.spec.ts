@@ -1,6 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { RoutineService } from './routine.service';
+import {RoutineService} from './routine.service';
 
 describe('RoutineService', () => {
   beforeEach(() => {
