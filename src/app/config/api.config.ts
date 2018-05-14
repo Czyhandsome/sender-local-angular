@@ -1,6 +1,6 @@
 // IP地址
-
 const IP = 'localhost';
+// const IP = '47.98.99.234';
 // 端口号
 const PORT = 8080;
 

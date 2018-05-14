@@ -45,12 +45,14 @@ export class TaskService {
   }
 
   // 结束取件
-  public endFetchOrder(taskId: string, orderId: string)
+  public endFetchOrder(taskId: string, orderId: string, file: File)
     : Observable<GenericMsg<any>> {
     const url = ApiConfig.endFetchOrderUrl(
       this.auth.getSenderId(), taskId, orderId
     );
-    return this.http.post<GenericMsg<any>>(url, {});
+    const data = new FormData();
+    data.append('orderPhoto', file);
+    return this.http.post<GenericMsg<any>>(url, data);
   }
 
   // 开始送件

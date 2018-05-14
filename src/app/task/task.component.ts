@@ -19,6 +19,9 @@ export class TaskComponent implements OnInit, OnDestroy {
   currentTask: CurrentTask = null;
   taskDto: TaskDto = null;
 
+  // 图片
+  orderPhoto: File;
+
   constructor(private taskService: TaskService) {
   }
 
@@ -74,8 +77,16 @@ export class TaskComponent implements OnInit, OnDestroy {
       });
   }
 
+  // 读取图片
+  public getFile(event) {
+    this.orderPhoto = event.target.files.item(0);
+  }
+
   public endFetchOrder(taskId: string, orderId: string) {
-    this.taskService.endFetchOrder(taskId, orderId)
+    if (!this.orderPhoto) {
+      alert('没有选择订单相片!');
+    }
+    this.taskService.endFetchOrder(taskId, orderId, this.orderPhoto)
       .subscribe(msg => {
         if (isSuccess(msg)) {
           alert(`Success! ${JSON.stringify(msg.data)}`);
