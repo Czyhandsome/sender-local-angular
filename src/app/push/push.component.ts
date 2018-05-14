@@ -3,8 +3,6 @@ import {PushService} from './push.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TaskPreview} from './task.preview';
 
-const NO_PUSH_MSG = '当前没有推送任务!';
-
 @Component({
   selector: 'app-push',
   templateUrl: './push.component.html',
@@ -12,7 +10,8 @@ const NO_PUSH_MSG = '当前没有推送任务!';
 })
 @Injectable()
 export class PushComponent implements OnInit, OnDestroy {
-  public pushMsg: TaskPreview;
+  public pushTask: TaskPreview;
+  public message = '当前没有任务推送!';
 
   private subscription: Subscription;
 
@@ -23,8 +22,9 @@ export class PushComponent implements OnInit, OnDestroy {
    * 接受任务
    */
   public accept() {
-    if (this.pushMsg) {
-      this.push.accept(this.pushMsg.id);
+    if (this.pushTask) {
+      this.push.accept(this.pushTask.id);
+      this.pushTask = null;
     }
   }
 
@@ -32,8 +32,9 @@ export class PushComponent implements OnInit, OnDestroy {
    * 拒绝任务
    */
   public reject() {
-    if (this.pushMsg) {
-      this.push.reject(this.pushMsg.id);
+    if (this.pushTask) {
+      this.push.reject(this.pushTask.id);
+      this.pushTask = null;
     }
   }
 
@@ -41,7 +42,8 @@ export class PushComponent implements OnInit, OnDestroy {
     this.push.connect();
     this.subscription = this.push.taskObserver()
       .subscribe(data => {
-        this.pushMsg = data;
+        this.message = '当前有任务推送!';
+        this.pushTask = data;
       });
   }
 

@@ -1,8 +1,8 @@
-<div *ngIf="!pushMsg">
-  当前没有任务推送!
+<div>
+  {{message}}
 </div>
-<div *ngIf="pushMsg">
-  {{pushMsg.id}} {{pushMsg.taskType}} {{pushMsg.orderQuantity}} {{pushMsg.expectedIncome}}
+<div *ngIf="pushTask">
+  {{pushTask.id}} {{pushTask.taskType}} {{pushTask.orderQuantity}} {{pushTask.expectedIncome}}
   <button (click)="accept()">接受任务</button>
   <button (click)="reject()">拒绝任务</button>
 </div>

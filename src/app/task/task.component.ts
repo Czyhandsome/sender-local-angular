@@ -33,7 +33,9 @@ export class TaskComponent implements OnInit, OnDestroy {
   // 处理当前的任务
   private handleCurrentTask(currentTask: CurrentTask) {
     this.currentTask = currentTask;
-    if (currentTask != null) {
+    if (currentTask == null) {
+      this.taskDto = null;
+    } else {
       const taskId = currentTask.taskId;
       switch (currentTask.taskStatus) {
         case TaskStatus.FETCHING:
@@ -61,11 +63,22 @@ export class TaskComponent implements OnInit, OnDestroy {
         error => console.error(error));
   }
 
+  public startFetchOrder(taskId: string, orderId: string) {
+    this.taskService.startFetchOrder(taskId, orderId)
+      .subscribe(msg => {
+        if (isSuccess(msg)) {
+          alert(`Success! ${JSON.stringify(msg.data)}`);
+        } else {
+          alert(`Fail! ${msg.msg}`);
+        }
+      });
+  }
+
   public endFetchOrder(taskId: string, orderId: string) {
     this.taskService.endFetchOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${msg.data}`);
+          alert(`Success! ${JSON.stringify(msg.data)}`);
         } else {
           alert(`Fail! ${msg.msg}`);
         }
@@ -76,18 +89,18 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.startSendOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${msg.data}`);
+          alert(`Success! ${JSON.stringify(msg.data)}`);
         } else {
           alert(`Fail! ${msg.msg}`);
         }
       });
   }
 
-  public verifyReceiver(taskId: string, orderId: string, code: string) {
-    this.taskService.verifyReceiver(taskId, orderId, code)
+  public verifyReceiver(taskId: string, orderId: string) {
+    this.taskService.verifyReceiver(taskId, orderId, '661266')
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${msg.data}`);
+          alert(`Success! ${JSON.stringify(msg.data)}`);
         } else {
           alert(`Fail! ${msg.msg}`);
         }
@@ -98,7 +111,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.endSendOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${msg.data}`);
+          alert(`Success! ${JSON.stringify(msg.data)}`);
         } else {
           alert(`Fail! ${msg.msg}`);
         }

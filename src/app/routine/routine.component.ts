@@ -30,7 +30,6 @@ export class RoutineComponent implements OnInit, OnDestroy {
     this.routineService.getCurrentRoutine()
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          console.log(JSON.stringify(msg));
           this.currentRoutines = msg.data;
         } else {
           console.error('获取快递员行程失败!');

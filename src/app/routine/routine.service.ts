@@ -34,7 +34,7 @@ export class RoutineService {
         'latitude': 31.865395,
         'addressName': '三孝口'
       },
-      dueTime: new Date().getTime() + 1000 * 60 * 5 + 1000 * 30,
+      dueTime: new Date().getTime() + 1000 * 60 * 5 + 1000 * 10,
       taskTypes: [TaskType.DirectTask]
     };
     return this.http.post<GenericMsg<any>>(url, routine);

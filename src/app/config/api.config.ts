@@ -119,6 +119,6 @@ export class ApiConfig {
   static endSendOrderUrl(senderId: string, taskId: string, orderId: string)
     : string {
     return `${DOMAIN_URL}/api/sender/${senderId}/tasks/${taskId}` +
-      `/orders/${orderId}/endSend`;
+      `/orders/${orderId}/stopSend`;
   }
 }
