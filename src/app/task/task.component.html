@@ -43,5 +43,6 @@
       </tr>
     </table>
     <input type="file" (change)="getFile($event)"/>
+    <p *ngIf="taskMessage">{{taskMessage}}</p>
   </div>
 </div>

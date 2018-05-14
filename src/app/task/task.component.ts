@@ -22,6 +22,9 @@ export class TaskComponent implements OnInit, OnDestroy {
   // 图片
   orderPhoto: File;
 
+  // 提示信息
+  taskMessage: string = null;
+
   constructor(private taskService: TaskService) {
   }
 
@@ -70,11 +73,15 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.startFetchOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${JSON.stringify(msg.data)}`);
+          this.changeMsg(`Success! ${JSON.stringify(msg.data)}`);
         } else {
-          alert(`Fail! ${msg.msg}`);
+          this.changeMsg(`Fail! ${msg.msg}`);
         }
       });
+  }
+
+  private changeMsg(msg: string) {
+    this.taskMessage = msg;
   }
 
   // 读取图片
@@ -85,24 +92,25 @@ export class TaskComponent implements OnInit, OnDestroy {
   public endFetchOrder(taskId: string, orderId: string) {
     if (!this.orderPhoto) {
       alert('没有选择订单相片!');
+    } else {
+      this.taskService.endFetchOrder(taskId, orderId, this.orderPhoto)
+        .subscribe(msg => {
+          if (isSuccess(msg)) {
+            this.changeMsg(`Success! ${JSON.stringify(msg.data)}`);
+          } else {
+            this.changeMsg(`Fail! ${msg.msg}`);
+          }
+        });
     }
-    this.taskService.endFetchOrder(taskId, orderId, this.orderPhoto)
-      .subscribe(msg => {
-        if (isSuccess(msg)) {
-          alert(`Success! ${JSON.stringify(msg.data)}`);
-        } else {
-          alert(`Fail! ${msg.msg}`);
-        }
-      });
   }
 
   public startSendOrder(taskId: string, orderId: string) {
     this.taskService.startSendOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${JSON.stringify(msg.data)}`);
+          this.changeMsg(`Success! ${JSON.stringify(msg.data)}`);
         } else {
-          alert(`Fail! ${msg.msg}`);
+          this.changeMsg(`Fail! ${msg.msg}`);
         }
       });
   }
@@ -111,9 +119,9 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.verifyReceiver(taskId, orderId, '661266')
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${JSON.stringify(msg.data)}`);
+          this.changeMsg(`Success! ${JSON.stringify(msg.data)}`);
         } else {
-          alert(`Fail! ${msg.msg}`);
+          this.changeMsg(`Fail! ${msg.msg}`);
         }
       });
   }
@@ -122,9 +130,9 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.endSendOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`Success! ${JSON.stringify(msg.data)}`);
+          this.changeMsg(`Success! ${JSON.stringify(msg.data)}`);
         } else {
-          alert(`Fail! ${msg.msg}`);
+          this.changeMsg(`Fail! ${msg.msg}`);
         }
       });
   }
