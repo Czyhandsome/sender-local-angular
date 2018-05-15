@@ -22,6 +22,7 @@
         <th>物品重量</th>
         <th>物品类型</th>
         <th>物品备注</th>
+        <th>快递员验证码</th>
       </tr>
       <tr *ngFor="let order of taskDto.orders">
         <td>{{order.orderId}}</td>
@@ -40,6 +41,7 @@
           <button (click)="verifyReceiver(taskDto.taskId, order.orderId)">验证快递员</button>
           <button (click)="endSendOrder(taskDto.taskId, order.orderId)">结束送件</button>
         </td>
+        <td>{{order.code}}</td>
       </tr>
     </table>
     <input type="file" (change)="getFile($event)"/>
