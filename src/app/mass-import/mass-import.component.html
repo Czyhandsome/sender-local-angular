@@ -1,0 +1,8 @@
+<meta charset="UTF-8"/>
+<div *ngFor="let bc of bigCustomers">
+  <label for="numOrders">一键导入订单数量</label><input id="numOrders" placeholder="订单导入数量" [ngModel]="bc.numOrders"/>
+  <button (click)="oneClickImport(bc.id, bc.numOrders)">
+    大商户{{bc.phone}}一键导入{{bc.numOrders}}个订单
+  </button>
+  <br/>
+</div>
