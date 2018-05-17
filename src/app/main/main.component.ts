@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
+import {ApiConfig} from '../config/api.config';
 
 @Component({
   selector: 'app-main',
@@ -18,5 +19,13 @@ export class MainComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+  }
+
+  changeToLocal() {
+    ApiConfig.changeToLocal();
+  }
+
+  changeToTest() {
+    ApiConfig.changeToTest();
   }
 }

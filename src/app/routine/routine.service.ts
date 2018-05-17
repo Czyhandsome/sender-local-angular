@@ -35,7 +35,7 @@ export class RoutineService {
         'addressName': '三孝口'
       },
       dueTime: new Date().getTime() + 1000 * 60 * 5 + 1000 * 10,
-      taskTypes: [TaskType.DirectTask]
+      taskTypes: [TaskType.DirectTask, TaskType.MergeTask]
     };
     return this.http.post<GenericMsg<any>>(url, routine);
   }

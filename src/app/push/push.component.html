@@ -1,5 +1,7 @@
 <div>
   {{message}}
+  <input placeholder="手动输入taskId" [(ngModel)]="handTaskId"/>
+  <button (click)="acceptHand(handTaskId)">手动接收任务</button>
 </div>
 <div *ngIf="pushTask">
   {{pushTask.id}} {{pushTask.taskType}} {{pushTask.orderQuantity}} {{pushTask.expectedIncome}}

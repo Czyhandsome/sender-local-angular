@@ -17,6 +17,9 @@ export class RoutineComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
+  // 提示消息
+  msg: string;
+
   constructor(private routineService: RoutineService,
               private auth: AuthService) {
   }
@@ -45,26 +48,30 @@ export class RoutineComponent implements OnInit, OnDestroy {
     this.routineService.publishRoutine(this.auth.getSenderId())
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`发布行程成功! ${JSON.stringify(msg.data)}`);
+          this.changeMsg(`发布行程成功! ${JSON.stringify(msg.data)}`);
           this.updateRoutine();
         } else {
-          alert(`发布行程失败! ${msg.msg}`);
+          this.changeMsg(`发布行程失败! ${msg.msg}`);
         }
       }, error => {
-        alert(`发布行程失败! ${JSON.stringify(error)}`);
+        this.changeMsg(`发布行程失败! ${JSON.stringify(error)}`);
       });
+  }
+
+  private changeMsg(msg: string) {
+    this.msg = msg;
   }
 
   cancelRoutine(routineId: string) {
     this.routineService.cancelRoutine(this.auth.getSenderId(), routineId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          alert(`取消行程成功! ${msg.data}`);
+          this.changeMsg(`取消行程{${routineId}}成功! `);
         } else {
-          alert(`取消行程失败! ${msg.msg}`);
+          this.changeMsg(`取消行程{${routineId}}失败! ${msg.msg}`);
         }
       }, error => {
-        alert(`发布行程失败! ${JSON.stringify(error)}`);
+        this.changeMsg(`取消行程{${routineId}}失败! ${JSON.stringify(error)}`);
       });
   }
 

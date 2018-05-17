@@ -13,6 +13,8 @@ export class PushComponent implements OnInit, OnDestroy {
   public pushTask: TaskPreview;
   public message = '当前没有任务推送!';
 
+  public handTaskId: string;
+
   private subscription: Subscription;
 
   constructor(private push: PushService) {
@@ -26,6 +28,14 @@ export class PushComponent implements OnInit, OnDestroy {
       this.push.accept(this.pushTask.id);
       this.pushTask = null;
     }
+  }
+
+  /**
+   * 手动拒绝任务
+   * @param {string} taskId 任务id
+   */
+  public acceptHand(taskId: string) {
+    this.push.accept(taskId);
   }
 
   /**

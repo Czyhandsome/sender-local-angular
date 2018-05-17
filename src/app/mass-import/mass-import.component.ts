@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {DOMAIN_URL} from '../config/api.config';
+import {GenericMsg, isSuccess} from '../entity/generic-msg';
 
 @Component({
   selector: 'app-mass-import',
@@ -7,13 +9,17 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./mass-import.component.css']
 })
 export class MassImportComponent implements OnInit {
+  // 提示信息
+  msg: string;
+  // 订单类型
+  orderTypeString = 'directOrders';
   // 要导入的订单
   order1 = {
     'starter': {
       'name': '测试万平',
       'phonenumber': '13966716001',
-      'longitude': 117.310963,
-      'latitude': 31.831457,
+      'longitude': 117.310954,
+      'latitude': 31.831635,
       'addressName': '创客云谷',
       'addressDetail': '3楼'
     },
@@ -49,14 +55,28 @@ export class MassImportComponent implements OnInit {
 
   oneClickImport(bcId, numOrders) {
     for (let i = 0; i < numOrders; i++) {
-      this.importOrder(bcId, this.order1);
+      this.importOrder(bcId, this.order1, this.orderTypeString);
     }
   }
 
-  private importOrder(bcId, order) {
-    const HOST_URL = 'http://192.168.100.101:8080';
-    const url =
-      `${HOST_URL}/api/public/bigcustomer/${bcId}/importedOrders/mergeOrders?ak=123456`;
-    this.http.post(url, order);
+  private importOrder(bcId, order, orderTypeString) {
+    if (orderTypeString) {
+      const url =
+        `${DOMAIN_URL}/api/public/bigcustomer/${bcId}/importedOrders/${orderTypeString}?ak=123456`;
+      this.http.post<GenericMsg<any>>(url, order)
+        .subscribe(msg => {
+          if (isSuccess(msg)) {
+            this.changeMsg(`导入订单成功! ${JSON.stringify(msg.data)}`);
+          } else {
+            this.changeMsg(`导入订单失败! ${msg.msg}`);
+          }
+        }, error => {
+          this.changeMsg(`导入订单失败! ${JSON.stringify(error)}`);
+        });
+    }
+  }
+
+  private changeMsg(msg: string) {
+    this.msg = msg;
   }
 }

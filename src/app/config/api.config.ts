@@ -1,16 +1,28 @@
 // IP地址
-const IP = 'localhost';
-// const IP = '47.98.99.234';
+let IP = '47.98.99.234';
 // 端口号
 const PORT = 8080;
 
 // 主页地址
-const DOMAIN_URL = `http://${IP}:${PORT}`;
+export let DOMAIN_URL = `http://${IP}:${PORT}`;
 
 export class ApiConfig {
   // ********** 权限的URL ********** //
   public static AUTH_URL = `${DOMAIN_URL}/api/public/sender/login`;
 
+  // ********** 修改IP地址 ********** //
+  public static changeToLocal() {
+    ApiConfig.changeUrl('localhost');
+  }
+
+  public static changeToTest() {
+    ApiConfig.changeUrl('47.98.99.234');
+  }
+
+  private static changeUrl(ip) {
+    IP = ip;
+    DOMAIN_URL = `http://${IP}:${PORT}`;
+  }
 
   // ********** WebSocket的URL ********** //
   public static WEBSOCKET_URL(senderId: string): string {

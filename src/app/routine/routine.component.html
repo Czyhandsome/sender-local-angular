@@ -16,8 +16,10 @@
       <td>{{routine.endAddress.addressName}}</td>
       <td>{{routine.dueTime}}</td>
       <td>{{routine.routineStatus}}
-      <button (click)="cancelRoutine(routine.routineId)">取消行程</button></td>
+        <button (click)="cancelRoutine(routine.routineId)">取消行程</button>
+      </td>
     </tr>
   </table>
   <h3 *ngIf="!hasRoutine()">当前没有行程!</h3>
+  <p *ngIf="msg">{{msg}}</p>
 </div>
