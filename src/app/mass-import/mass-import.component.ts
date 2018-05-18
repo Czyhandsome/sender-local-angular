@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DOMAIN_URL} from '../config/api.config';
 import {GenericMsg, isSuccess} from '../entity/generic-msg';
+import {timer} from 'rxjs';
 
 @Component({
   selector: 'app-mass-import',
@@ -9,8 +10,6 @@ import {GenericMsg, isSuccess} from '../entity/generic-msg';
   styleUrls: ['./mass-import.component.css']
 })
 export class MassImportComponent implements OnInit {
-  // 提示信息
-  msg: string;
   // 订单类型
   orderTypeString = 'directOrders';
   // 要导入的订单
@@ -47,18 +46,26 @@ export class MassImportComponent implements OnInit {
     {id: '21a544a4-ff84-4fda-b3df-bf1168d3de48', phone: '18949203682', numOrders: 1}
   ];
 
+  // 要验证的订单id
+  public orderId: string;
+
+  // 提示信息
+  msg: string;
+
   constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
   }
 
+  // 一键导入多个订单
   oneClickImport(bcId, numOrders) {
     for (let i = 0; i < numOrders; i++) {
       this.importOrder(bcId, this.order1, this.orderTypeString);
     }
   }
 
+  // 导入订单
   private importOrder(bcId, order, orderTypeString) {
     if (orderTypeString) {
       const url =
@@ -76,7 +83,19 @@ export class MassImportComponent implements OnInit {
     }
   }
 
+  // 验证快递员
+  verifySender(bcId: string, orderId: string) {
+    const url = `${DOMAIN_URL}/api/public/bigcustomer/${bcId}/importedOrders`
+      + `/verifySender/orderId/${orderId}/code/858346?ak=123456`;
+    this.http.post(url, {})
+      .subscribe(() => this.changeMsg('验证快递员成功!'));
+  }
+
+  // 显示信息
   private changeMsg(msg: string) {
     this.msg = msg;
+    timer(1500)
+      .subscribe(() => msg = null);
+    console.log(msg);
   }
 }

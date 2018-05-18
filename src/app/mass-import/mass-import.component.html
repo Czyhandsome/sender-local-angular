@@ -8,6 +8,8 @@
   <button (click)="oneClickImport(bc.id, bc.numOrders)">
     大商户{{bc.phone}}一键导入{{bc.numOrders}}个订单
   </button>
+  <input [(ngModel)]="orderId" placeholder="手动输入订单id!"/>
+  <button (click)="verifySender(bc.id, orderId)">手动验证订单</button>
   <br/>
 </div>
 <div *ngIf="msg">{{msg}}</div>

@@ -39,7 +39,7 @@ export class PushService {
     const url = ApiConfig.acceptTaskUrl(this.auth.getSenderId(), taskId);
     this.http.post(url, {})
       .subscribe(() => {
-        console.log('接受任务成功!');
+        console.log(`${new Date()} ==> 接受任务{${taskId}成功!`);
       });
   }
 
@@ -51,7 +51,7 @@ export class PushService {
     const url = ApiConfig.rejectTaskUrl(this.auth.getSenderId(), taskId);
     this.http.post(url, {})
       .subscribe(() => {
-        console.log('拒绝任务成功!');
+        console.log(`${new Date()} ==> 拒绝任务{${taskId}成功!`);
       });
   }
 }

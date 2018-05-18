@@ -54,6 +54,7 @@ export class PushComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.message = '当前有任务推送!';
         this.pushTask = data;
+        console.log(`${new Date()} ==> 任务{${data.id}推送!`);
       });
   }
 
