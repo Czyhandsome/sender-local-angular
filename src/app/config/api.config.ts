@@ -1,5 +1,5 @@
 // IP地址
-let IP = '47.98.99.234';
+let IP = '192.168.100.101';
 // 端口号
 const PORT = 8080;
 
@@ -14,7 +14,7 @@ export class ApiConfig {
 
   // ********** 修改IP地址 ********** //
   public static changeToLocal() {
-    ApiConfig.changeUrl('localhost');
+    ApiConfig.changeUrl('192.168.100.101');
   }
 
   public static changeToTest() {

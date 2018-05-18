@@ -5,6 +5,7 @@ import {CurrentTask} from './current-task';
 import {TaskStatus} from './task.status';
 import {TaskDto} from './task.dto';
 import {isSuccess} from '../entity/generic-msg';
+import {BcLinkTaskService} from '../mass-import/bc-link-task.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class TaskComponent implements OnInit, OnDestroy {
   // 提示信息
   taskMessage: string = null;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService,
+              private bcLinkTask: BcLinkTaskService) {
   }
 
   ngOnInit(): void {
@@ -102,6 +104,11 @@ export class TaskComponent implements OnInit, OnDestroy {
           }
         });
     }
+  }
+
+  // 发送订单id, 让大商户一键验证
+  public sendOrderId(orderId: string) {
+    this.bcLinkTask.sendOrderId(orderId);
   }
 
   public startSendOrder(taskId: string, orderId: string) {

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {DOMAIN_URL} from '../config/api.config';
 import {GenericMsg, isSuccess} from '../entity/generic-msg';
 import {timer} from 'rxjs';
+import {BcLinkTaskService} from './bc-link-task.service';
 
 @Component({
   selector: 'app-mass-import',
@@ -52,7 +53,10 @@ export class MassImportComponent implements OnInit {
   // 提示信息
   msg: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private bcLinkTask: BcLinkTaskService) {
+    bcLinkTask.orderIdSubject()
+      .subscribe((orderId) => this.orderId = orderId);
   }
 
   ngOnInit() {
@@ -87,8 +91,16 @@ export class MassImportComponent implements OnInit {
   verifySender(bcId: string, orderId: string) {
     const url = `${DOMAIN_URL}/api/public/bigcustomer/${bcId}/importedOrders`
       + `/verifySender/orderId/${orderId}/code/858346?ak=123456`;
-    this.http.post(url, {})
-      .subscribe(() => this.changeMsg('验证快递员成功!'));
+    this.http.post<GenericMsg<any>>(url, {})
+      .subscribe((msg) => {
+        if (isSuccess(msg)) {
+          this.changeMsg('验证快递员成功!');
+        } else {
+          this.changeMsg(`验证快递员失败!${msg.msg}`);
+        }
+      }, (error) => {
+        this.changeMsg(`验证快递员失败!${JSON.stringify(error)}`);
+      });
   }
 
   // 显示信息
