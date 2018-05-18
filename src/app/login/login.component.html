@@ -4,3 +4,6 @@
   <label style="color: #FF0000">{{errorMsg}}</label>
   <button (click)="doLogin()">Get token</button>
 </div>
+<div *ngFor="let sender of senders">
+  <button (click)="doLoginFor(sender.phone, sender.password)">{{sender.phone}}登录</button>
+</div>

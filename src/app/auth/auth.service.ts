@@ -19,7 +19,7 @@ export class AuthService {
 
   // 执行登录
   public doLogin(phonenumber: string, password: string): Observable<string> {
-    return this.http.post<GenericMsg<TokenObject>>(ApiConfig.AUTH_URL, {
+    return this.http.post<GenericMsg<TokenObject>>(ApiConfig.authUrl(), {
       phonenumber: phonenumber,
       password: password
     }).pipe(map(msg => {

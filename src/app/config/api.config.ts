@@ -8,7 +8,9 @@ export let DOMAIN_URL = `http://${IP}:${PORT}`;
 
 export class ApiConfig {
   // ********** 权限的URL ********** //
-  public static AUTH_URL = `${DOMAIN_URL}/api/public/sender/login`;
+  public static authUrl() {
+    return `${DOMAIN_URL}/api/public/sender/login`;
+  }
 
   // ********** 修改IP地址 ********** //
   public static changeToLocal() {
