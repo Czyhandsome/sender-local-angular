@@ -56,7 +56,10 @@ export class MassImportComponent implements OnInit {
   constructor(private http: HttpClient,
               private bcLinkTask: BcLinkTaskService) {
     bcLinkTask.orderIdSubject()
-      .subscribe((orderId) => this.orderId = orderId);
+      .subscribe((orderId) => {
+        this.orderId = orderId;
+        this.changeMsg(`订单id{${orderId}}接收成功!`);
+      });
   }
 
   ngOnInit() {

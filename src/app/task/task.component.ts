@@ -75,6 +75,8 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.startFetchOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
+          // 发送订单id
+          this.bcLinkTask.sendOrderId(orderId);
           this.changeMsg(`Success! ${JSON.stringify(msg.data)} ===> OrderId{${orderId}}`);
         } else {
           this.changeMsg(`Fail! ${msg.msg} ===> OrderId{${orderId}}`);
@@ -104,11 +106,6 @@ export class TaskComponent implements OnInit, OnDestroy {
           }
         });
     }
-  }
-
-  // 发送订单id, 让大商户一键验证
-  public sendOrderId(orderId: string) {
-    this.bcLinkTask.sendOrderId(orderId);
   }
 
   public startSendOrder(taskId: string, orderId: string) {
