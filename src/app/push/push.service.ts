@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {ApiConfig} from '../config/api.config';
 import {AuthService} from '../auth/auth.service';
-import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
+import {webSocket, WebSocketSubject, WebSocketSubjectConfig} from 'rxjs/webSocket';
 import {Observable} from 'rxjs/Observable';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {TaskPreview} from './task.preview';
 import {PayloadObject} from '../entity/payload.object';
 import {HttpClient} from '@angular/common/http';
+import {GenericMsg} from '../entity/generic-msg';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,27 @@ export class PushService {
   }
 
   public connect() {
-    this.subject = webSocket(ApiConfig.WEBSOCKET_URL(this.auth.getSenderId()));
+    const config: WebSocketSubjectConfig<PayloadObject<TaskPreview>> = {
+      url: ApiConfig.WEBSOCKET_URL(this.auth.getSenderId()),
+      serializer: payload => JSON.stringify(payload),
+      deserializer: event => {
+        try {
+          const data = event.data;
+          return JSON.parse(data);
+        } catch (error) {
+          return null;
+        }
+      }
+    };
+    this.subject = webSocket(config);
   }
 
   public taskObserver(): Observable<TaskPreview> {
     return this.subject
-      .pipe(map(payload => payload.object));
+      .pipe(
+        filter(payload => payload != null && payload['object'] != null),
+        map(payload => payload.object)
+      );
   }
 
   public disconnect() {
@@ -35,23 +51,17 @@ export class PushService {
    * 接受任务
    * @param {string} taskId 任务id
    */
-  public accept(taskId: string) {
+  public accept(taskId: string): Observable<GenericMsg<any>> {
     const url = ApiConfig.acceptTaskUrl(this.auth.getSenderId(), taskId);
-    this.http.post(url, {})
-      .subscribe(() => {
-        console.log(`${new Date()} ==> 接受任务{${taskId}成功!`);
-      });
+    return this.http.post<GenericMsg<any>>(url, {});
   }
 
   /**
    * 拒绝任务
    * @param {string} taskId 任务id
    */
-  public reject(taskId: string) {
+  public reject(taskId: string): Observable<GenericMsg<any>> {
     const url = ApiConfig.rejectTaskUrl(this.auth.getSenderId(), taskId);
-    this.http.post(url, {})
-      .subscribe(() => {
-        console.log(`${new Date()} ==> 拒绝任务{${taskId}成功!`);
-      });
+    return this.http.post<GenericMsg<any>>(url, {});
   }
 }
