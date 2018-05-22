@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DOMAIN_URL} from '../config/api.config';
 import {GenericMsg, isSuccess} from '../entity/generic-msg';
-import {timer} from 'rxjs';
 import {BcLinkTaskService} from './bc-link-task.service';
+import {FlushMessageComponent} from '../flush-message/flush-message.component';
 
 @Component({
   selector: 'app-mass-import',
@@ -51,7 +51,8 @@ export class MassImportComponent implements OnInit {
   public orderId: string;
 
   // 提示信息
-  msg: string;
+  @ViewChild(FlushMessageComponent)
+  private flush: FlushMessageComponent;
 
   constructor(private http: HttpClient,
               private bcLinkTask: BcLinkTaskService) {
@@ -108,9 +109,6 @@ export class MassImportComponent implements OnInit {
 
   // 显示信息
   private changeMsg(msg: string) {
-    this.msg = msg;
-    timer(1500)
-      .subscribe(() => msg = null);
-    console.log(msg);
+    this.flush.changeMsg(msg);
   }
 }

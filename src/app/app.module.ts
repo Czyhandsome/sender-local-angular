@@ -20,6 +20,7 @@ import {RoutineService} from './routine/routine.service';
 import {PushComponent} from './push/push.component';
 import {TaskPreviewComponent} from './task/all-fetch/task-preview.component';
 import { MassImportComponent } from './mass-import/mass-import.component';
+import { FlushMessageComponent } from './flush-message/flush-message.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MassImportComponent } from './mass-import/mass-import.component';
     MainComponent,
     PushComponent,
     TaskPreviewComponent,
-    MassImportComponent
+    MassImportComponent,
+    FlushMessageComponent
   ],
   imports: [
     BrowserModule,

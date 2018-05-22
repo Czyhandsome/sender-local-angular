@@ -1,11 +1,12 @@
 import {Subscription, timer as observableTimer} from 'rxjs';
-import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Component, Injectable, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TaskService} from './task.service';
 import {CurrentTask} from './current-task';
 import {TaskStatus} from './task.status';
 import {TaskDto} from './task.dto';
 import {isSuccess} from '../entity/generic-msg';
 import {BcLinkTaskService} from '../mass-import/bc-link-task.service';
+import {FlushMessageComponent} from '../flush-message/flush-message.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class TaskComponent implements OnInit, OnDestroy {
   orderPhoto: File;
 
   // 提示信息
-  taskMessage: string = null;
+  @ViewChild(FlushMessageComponent)
+  flush: FlushMessageComponent;
 
   constructor(private taskService: TaskService,
               private bcLinkTask: BcLinkTaskService) {
@@ -85,7 +87,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   private changeMsg(msg: string) {
-    this.taskMessage = msg;
+    this.flush.changeMsg(msg);
   }
 
   // 读取图片
