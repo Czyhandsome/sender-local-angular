@@ -1,9 +1,10 @@
-import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Component, Injectable, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Routine} from './routine';
 import {RoutineService} from './routine.service';
 import {Subscription, timer} from 'rxjs';
 import {isSuccess} from '../entity/generic-msg';
 import {AuthService} from '../auth/auth.service';
+import {FlushMessageComponent} from '../flush-message/flush-message.component';
 
 @Component({
   selector: 'app-routine',
@@ -18,7 +19,8 @@ export class RoutineComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   // 提示消息
-  msg: string;
+  @ViewChild(FlushMessageComponent)
+  private flush: FlushMessageComponent;
 
   constructor(private routineService: RoutineService,
               private auth: AuthService) {
@@ -59,7 +61,7 @@ export class RoutineComponent implements OnInit, OnDestroy {
   }
 
   private changeMsg(msg: string) {
-    this.msg = msg;
+    this.flush.changeMsg(msg);
   }
 
   cancelRoutine(routineId: string) {
