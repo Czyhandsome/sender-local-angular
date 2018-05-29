@@ -1,4 +1,3 @@
-import {Subscription, timer as observableTimer} from 'rxjs';
 import {Component, Injectable, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TaskService} from './task.service';
 import {CurrentTask} from './current-task';
@@ -15,9 +14,7 @@ import {FlushMessageComponent} from '../flush-message/flush-message.component';
 })
 @Injectable()
 export class TaskComponent implements OnInit, OnDestroy {
-  private currentTaskSubscription: Subscription;
-
-  // ********** 数据 ********** //
+// ********** 数据 ********** //
   currentTask: CurrentTask = null;
   taskDto: TaskDto = null;
 
@@ -33,11 +30,12 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.currentTaskSubscription = observableTimer(0, 2000)
-      .subscribe(() => {
-        this.taskService.getCurrentTask()
-          .subscribe(currentTask => this.handleCurrentTask(currentTask));
-      });
+    this.updateTask();
+  }
+
+  private updateTask() {
+    this.taskService.getCurrentTask()
+      .subscribe(currentTask => this.handleCurrentTask(currentTask));
   }
 
   // 处理当前的任务
@@ -102,6 +100,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.taskService.endFetchOrder(taskId, orderId, this.orderPhoto)
         .subscribe(msg => {
           if (isSuccess(msg)) {
+            this.updateTask();
             this.changeMsg(`Success! ${JSON.stringify(msg.data)} ===> OrderId{${orderId}}`);
           } else {
             this.changeMsg(`Fail! ${msg.msg} ===> OrderId{${orderId}}`);
@@ -136,6 +135,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.endSendOrder(taskId, orderId)
       .subscribe(msg => {
         if (isSuccess(msg)) {
+          this.updateTask();
           this.changeMsg(`Success! ${JSON.stringify(msg.data)} ===> OrderId{${orderId}}`);
         } else {
           this.changeMsg(`Fail! ${msg.msg} ===> OrderId{${orderId}}`);
@@ -144,6 +144,5 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentTaskSubscription.unsubscribe();
   }
 }

@@ -1,5 +1,9 @@
+// ***** 常量 *****//
+const aliczy = '47.98.99.234';
+const local = '192.168.100.103';
+
 // IP地址
-let IP = '192.168.100.101';
+let IP = aliczy;
 // 端口号
 const PORT = 8080;
 
@@ -14,11 +18,11 @@ export class ApiConfig {
 
   // ********** 修改IP地址 ********** //
   public static changeToLocal() {
-    ApiConfig.changeUrl('192.168.100.101');
+    ApiConfig.changeUrl(local);
   }
 
   public static changeToTest() {
-    ApiConfig.changeUrl('47.98.99.234');
+    ApiConfig.changeUrl(aliczy);
   }
 
   private static changeUrl(ip) {
