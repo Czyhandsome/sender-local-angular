@@ -5,6 +5,7 @@
 </div>
 <div *ngIf="pushTask">
   {{pushTask.id}} {{pushTask.taskType}} {{pushTask.orderQuantity}} {{pushTask.expectedIncome}}
+  <p *ngIf="pushTask.remark">{{pushTask.remark}}</p>
   <button (click)="accept()">接受任务</button>
   <button (click)="reject()">拒绝任务</button>
 </div>

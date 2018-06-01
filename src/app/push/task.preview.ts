@@ -7,4 +7,5 @@ export interface TaskPreview {
   expectedIncome: number;
   fetchTime: number;
   sendTime: number;
+  remark: string;
 }
