@@ -4,7 +4,6 @@ import {AuthService} from '../auth/auth.service';
 import {webSocket, WebSocketSubject, WebSocketSubjectConfig} from 'rxjs/webSocket';
 import {Observable} from 'rxjs/Observable';
 import {filter, map} from 'rxjs/operators';
-import {TaskPreview} from './task.preview';
 import {PayloadObject} from '../entity/payload.object';
 import {HttpClient} from '@angular/common/http';
 import {GenericMsg} from '../entity/generic-msg';
@@ -13,14 +12,14 @@ import {GenericMsg} from '../entity/generic-msg';
   providedIn: 'root'
 })
 export class PushService {
-  private subject: WebSocketSubject<PayloadObject<TaskPreview>>;
+  private subject: WebSocketSubject<PayloadObject<any>>;
 
   constructor(private auth: AuthService,
               private http: HttpClient) {
   }
 
   public connect() {
-    const config: WebSocketSubjectConfig<PayloadObject<TaskPreview>> = {
+    const config: WebSocketSubjectConfig<PayloadObject<any>> = {
       url: ApiConfig.WEBSOCKET_URL(this.auth.getSenderId()),
       serializer: payload => JSON.stringify(payload),
       deserializer: event => {
@@ -35,12 +34,8 @@ export class PushService {
     this.subject = webSocket(config);
   }
 
-  public taskObserver(): Observable<TaskPreview> {
-    return this.subject
-      .pipe(
-        filter(payload => payload != null && payload['object'] != null),
-        map(payload => payload.object)
-      );
+  public taskObserver(): Observable<PayloadObject<any>> {
+    return this.subject;
   }
 
   public disconnect() {
