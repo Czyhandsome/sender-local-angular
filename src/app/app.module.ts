@@ -21,6 +21,7 @@ import {PushComponent} from './push/push.component';
 import {TaskPreviewComponent} from './task/all-fetch/task-preview.component';
 import { MassImportComponent } from './mass-import/mass-import.component';
 import { FlushMessageComponent } from './flush-message/flush-message.component';
+import { LocationComponent } from './location/location.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { FlushMessageComponent } from './flush-message/flush-message.component';
     PushComponent,
     TaskPreviewComponent,
     MassImportComponent,
-    FlushMessageComponent
+    FlushMessageComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
