@@ -1,6 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
 import {Router} from '@angular/router';
+import {log} from '../logger';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
       .subscribe(() => {
         this.router.navigateByUrl('/main');
       }, error => {
-        console.log(JSON.stringify(error));
+        log(JSON.stringify(error));
         this.errorMsg = '登录失败!';
       });
   }

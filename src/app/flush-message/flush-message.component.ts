@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {timer} from 'rxjs/internal/observable/timer';
+import {log} from '../logger';
 
 @Component({
   selector: 'app-flush-message',
@@ -22,7 +23,7 @@ export class FlushMessageComponent implements OnInit {
 
   // 修改消息
   public changeMsg(str: string) {
-    console.log(str);
+    log(str);
     this.msg = str;
     timer(1500)
       .subscribe(() => this.msg = this.initMessage);

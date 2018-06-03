@@ -4,6 +4,7 @@ import {ApiConfig} from '../config/api.config';
 import {AuthService} from '../auth/auth.service';
 import {SenderLocation} from './sender.location';
 import {GenericMsg, isSuccess} from '../entity/generic-msg';
+import {log} from '../logger';
 
 // 默认坐标
 const longitude = 117.311147;
@@ -23,9 +24,9 @@ export class LocationService {
     this.http.post<GenericMsg<any>>(url, new SenderLocation(longitude, latitude))
       .subscribe(msg => {
         if (isSuccess(msg)) {
-          console.log('上传位置信息成功');
+          log('上传位置信息成功');
         } else {
-          console.log(`上传位置信息失败: ${msg.msg}`);
+          log(`上传位置信息失败: ${msg.msg}`);
         }
       });
   }

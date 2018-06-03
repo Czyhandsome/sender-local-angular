@@ -3,8 +3,9 @@ import {PushService} from './push.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TaskPreview} from './task.preview';
 import {isSuccess} from '../entity/generic-msg';
-import {timer} from 'rxjs/index';
+import {timer} from 'rxjs';
 import {ALARM, MERGE_FINISH, MERGE_ORDER_IN, TASK_PUSH} from '../entity/payload.object';
+import {log} from '../logger';
 
 const initialMsg = '当前没有任务推送!';
 
@@ -70,7 +71,8 @@ export class PushComponent implements OnInit, OnDestroy {
 
   // 修改信息
   private changeMsg(msg: string) {
-    console.log(msg);
+    // Log
+    log(msg);
     this.message = msg;
     timer(1500)
       .subscribe(() => this.message = initialMsg);
@@ -84,19 +86,19 @@ export class PushComponent implements OnInit, OnDestroy {
           case TASK_PUSH:
             this.message = '当前有任务推送!';
             this.pushTask = payload.object;
-            console.log(`${new Date()} ==> 任务{${this.pushTask.id}推送!`);
+            log(`任务{${this.pushTask.id}推送!`);
             break;
           case MERGE_ORDER_IN:
             this.message = '当前任务有新订单拼入!';
-            console.log(`新订单拼入任务了!`);
+            log(`新订单拼入任务了!`);
             break;
           case MERGE_FINISH:
             this.message = '拼单时间结束了!';
-            console.log(`拼单时间结束!`);
+            log(`拼单时间结束!`);
             break;
           case ALARM:
             this.message = '重新推送消息来了, 请及时处理任务推送!';
-            console.log(`收到任务推送提醒消息`);
+            log(`收到任务推送提醒消息`);
             break;
         }
       });
